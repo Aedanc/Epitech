@@ -1,0 +1,21 @@
+.chipsets: 
+input a 
+input b 
+input c
+input d
+
+output s 
+
+4071 in
+4071 out
+
+.links: 
+a:1 in:1					
+b:1 in:2
+out:1 in:3
+
+c:1 in:5
+d:1 in:6
+out:2 in:4 
+
+s:1 out:3

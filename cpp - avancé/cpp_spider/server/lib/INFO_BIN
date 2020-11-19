@@ -1,0 +1,92 @@
+===== Information about the build process: =====
+Build was run at 2017-07-24 21:55:01 on host 'unknown'
+
+Build was done on  Linux-4.11.5-200.fc25.x86_64 using x86_64
+Build was done using cmake 3.9.0 
+
+===== Compiler flags used (from the 'sql/' subdirectory): =====
+# compile C with /usr/bin/cc
+# compile CXX with /usr/bin/c++
+C_FLAGS = -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic -fPIC -Wall -Wextra -Wformat-security -Wvla -Wwrite-strings -Wdeclaration-after-statement -O3 -g -fabi-version=2 -fno-omit-frame-pointer -fno-strict-aliasing -DDBUG_OFF  
+C_DEFINES = -DHAVE_CONFIG_H -DHAVE_LIBEVENT2 -DHAVE_OPENSSL -DHAVE_REPLICATION -DMYSQL_SERVER -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+C_INCLUDES = -I/builddir/build/BUILD/mysql-5.7.19/build/include -I/builddir/build/BUILD/mysql-5.7.19/extra/rapidjson/include -I/builddir/build/BUILD/mysql-5.7.19/build/libbinlogevents/include -I/builddir/build/BUILD/mysql-5.7.19/libbinlogevents/export -I/builddir/build/BUILD/mysql-5.7.19/include -I/builddir/build/BUILD/mysql-5.7.19/sql/conn_handler -I/builddir/build/BUILD/mysql-5.7.19/libbinlogevents/include -I/builddir/build/BUILD/mysql-5.7.19/sql -I/builddir/build/BUILD/mysql-5.7.19/sql/auth -I/builddir/build/BUILD/mysql-5.7.19/regex -I/builddir/build/BUILD/mysql-5.7.19/build/sql 
+CXX_FLAGS = -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic -fPIC -Wall -Wextra -Wformat-security -Wvla -Woverloaded-virtual -Wno-unused-parameter -O3 -g -fabi-version=2 -fno-omit-frame-pointer -fno-strict-aliasing -std=gnu++03 -DDBUG_OFF  
+CXX_DEFINES = -DHAVE_CONFIG_H -DHAVE_LIBEVENT2 -DHAVE_OPENSSL -DHAVE_REPLICATION -DMYSQL_SERVER -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+CXX_INCLUDES = -I/builddir/build/BUILD/mysql-5.7.19/build/include -I/builddir/build/BUILD/mysql-5.7.19/extra/rapidjson/include -I/builddir/build/BUILD/mysql-5.7.19/build/libbinlogevents/include -I/builddir/build/BUILD/mysql-5.7.19/libbinlogevents/export -I/builddir/build/BUILD/mysql-5.7.19/include -I/builddir/build/BUILD/mysql-5.7.19/sql/conn_handler -I/builddir/build/BUILD/mysql-5.7.19/libbinlogevents/include -I/builddir/build/BUILD/mysql-5.7.19/sql -I/builddir/build/BUILD/mysql-5.7.19/sql/auth -I/builddir/build/BUILD/mysql-5.7.19/regex -I/builddir/build/BUILD/mysql-5.7.19/build/sql 
+
+Pointer size: 8
+
+===== Feature flags used: =====
+-- Cache values
+BOOST_INCLUDE_DIR:PATH=/builddir/build/BUILD/mysql-5.7.19/boost/boost_1_59_0
+BUNDLE_MECAB:BOOL=OFF
+CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+CMAKE_INSTALL_PREFIX:PATH=/usr
+COMMUNITY_BUILD:BOOL=ON
+CRYPTO_LIBRARY:FILEPATH=/usr/lib64/libcrypto.so
+DEB_CODENAME:STRING=
+DOWNLOAD_BOOST:BOOL=OFF
+DOWNLOAD_BOOST_TIMEOUT:STRING=600
+ENABLED_PROFILING:BOOL=ON
+ENABLE_DOWNLOADS:BOOL=OFF
+ENABLE_DTRACE:BOOL=ON
+ENABLE_GCOV:BOOL=OFF
+ENABLE_GPROF:BOOL=OFF
+ENABLE_MEMCACHED_SASL:BOOL=OFF
+ENABLE_MEMCACHED_SASL_PWDB:BOOL=OFF
+FEATURE_SET:STRING=community
+FOUND_EDITLINE_READLINE:PATH=/usr/include
+INSTALL_LAYOUT:STRING=RPM
+INSTALL_PKGCONFIGDIR:PATH=
+LIBEVENT2_INCLUDE_DIR:PATH=/usr/include
+LIBEVENT_CORE:FILEPATH=/usr/lib64/libevent_core.so
+LIBEVENT_INCLUDE_DIR:PATH=/usr/include
+LIBEVENT_LIB:FILEPATH=/usr/lib64/libevent.so
+LOCAL_BOOST_DIR:FILEPATH=/builddir/build/BUILD/mysql-5.7.19/boost/boost_1_59_0
+LOCAL_BOOST_ZIP:FILEPATH=LOCAL_BOOST_ZIP-NOTFOUND
+LZ4_SYSTEM_LIBRARY:FILEPATH=/usr/lib64/liblz4.so
+MECAB_INCLUDE_DIR:PATH=/usr/include
+MECAB_LIBRARY:FILEPATH=/usr/lib64/libmecab.so
+MUTEXTYPE:STRING=event
+MYSQL_DATADIR:PATH=/var/lib/mysql
+MYSQL_KEYRINGDIR:PATH=/var/lib/mysql-keyring
+MYSQL_MAINTAINER_MODE:BOOL=OFF
+OPENSSL_INCLUDE_DIR:PATH=/usr/include
+OPENSSL_LIBRARY:FILEPATH=/usr/lib64/libssl.so
+OPENSSL_ROOT_DIR:PATH=/usr
+OPTIMIZER_TRACE:BOOL=ON
+PATH_TO_LZ4:PATH=/usr/include
+REPRODUCIBLE_BUILD:BOOL=OFF
+TMPDIR:PATH=/var/tmp
+WITH_ARCHIVE_STORAGE_ENGINE:BOOL=ON
+WITH_ASAN:BOOL=OFF
+WITH_BLACKHOLE_STORAGE_ENGINE:BOOL=ON
+WITH_BOOST:PATH=/builddir/build/BUILD/mysql-5.7.19/boost
+WITH_CLIENT_PROTOCOL_TRACING:BOOL=ON
+WITH_DEBUG:BOOL=OFF
+WITH_DEFAULT_COMPILER_OPTIONS:BOOL=ON
+WITH_DEFAULT_FEATURE_SET:BOOL=ON
+WITH_EMBEDDED_SERVER:BOOL=ON
+WITH_EMBEDDED_SHARED_LIBRARY:BOOL=ON
+WITH_EXTRA_CHARSETS:STRING=all
+WITH_FEDERATED_STORAGE_ENGINE:BOOL=ON
+WITH_INNODB_EXTRA_DEBUG:BOOL=OFF
+WITH_INNODB_MEMCACHED:BOOL=ON
+WITH_LIBWRAP:BOOL=OFF
+WITH_MECAB:STRING=system
+WITH_MSAN:BOOL=OFF
+WITH_NGRAM_PARSER:BOOL=ON
+WITH_NUMA:BOOL=ON
+WITH_PARTITION_STORAGE_ENGINE:BOOL=ON
+WITH_PIC:BOOL=ON
+WITH_RAPID:BOOL=ON
+WITH_SSL:STRING=system
+WITH_SYSTEMD:BOOL=1
+WITH_TEST_TRACE_PLUGIN:BOOL=OFF
+WITH_UBSAN:BOOL=OFF
+WITH_UNIT_TESTS:BOOL=ON
+WITH_VALGRIND:BOOL=OFF
+WITH_ZLIB:STRING=system
+XPLUGIN_LOG_PROTOBUF:STRING=1
+
+===== EOF =====

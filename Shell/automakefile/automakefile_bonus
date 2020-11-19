@@ -1,0 +1,192 @@
+#!/bin/bash
+## automakefile.sh for automakefile in /home/fortevg/rendu/automakefile
+## 
+## Made by Gabriel Forteville
+## Login   <fortev_g@epitech.net>
+## 
+## Started on  Mon Jun 27 14:00:08 2016 Gabriel Forteville
+## Last update Wed Jun 29 16:17:13 2016 Gabriel Forteville
+##
+
+#	security configuration file
+
+if [ -z $1 ] || [ ! -r $1 ] || [ ! -z $2 ]
+then
+    echo -e "automakefile need a configuration file, pleaz write the path of the file from here.\n(Rerun with -h for more information)"
+    read conf_file
+    while [ -z "$conf_file" ] || [ ! -f "$conf_file" ] || [ ! -r "$conf_file" ] || [[ "$conf_file" =~ '.* *.' ]]
+    do
+	echo -e "automakefile need a configuration file, pleaz write the path of the file from here.\n(Rerun with -h for more information)"
+	read conf_file
+    done
+fi
+
+
+: ${conf_file:=$1}
+
+#	print help
+
+if [ "$conf_file" = -h ]
+then
+    echo -e "\nautomakefile take a file in argument.
+This configuration file can contain the following (potentially unordered) lines:
+
+• source_filename;dependence1 dependence2 ...(specify the full names of the files, from the header subfolder
+below)
+• PROJECT_DIR;name_of_the_project_root_folder
+• SOURCES_DIR;subfolder_containing_the_source_files
+• HEADERS_DIR;subfolder_containing_the_header_files
+• LIBS_DIR;subfolder_containing_librairies
+• EXEC;executable_name
+• CC;compilator_binary
+• CFLAGS;compilation_flag1 compilation_flag1...
+• LDFLAGS;linking_flag1 linking_flag2 ...
+• BCK_DIR;name_of_the_backup_folder
+• ZIP;compression_binary
+• ZIPFLAGS;compression_options
+• UNZIP;decompression_binary
+• UNZIPFLAGS;decompression_options
+example:
+
+main.c;fakeProj.h
+EXEC;fakeProj
+calc.c;calc/calc.h fakeProj.h
+PROJECT_DIR;fakeProj
+CC;clang
+SOURCES_DIR;.
+CFLAGS;-ftest-coverage -O2
+LDFLAGS;
+HEADERS_DIR;include
+LIBS_DIR;libs
+BKP_DIR;fakeProj_backUp
+ZIP;tar
+ZIPFLAGS;-cvvf
+UNZIP;tar
+UNZIPFLAGS;-xvf"
+    exit
+fi
+
+
+#	header epitech
+
+HOUR=$(date +%H)
+MIN=$(date +%M)
+DAY=$(date +%u)
+MONTH=$(date +%-m)
+YEAR=$(date +%Y)
+
+case $DAY in
+    1)	DAY=Mon ;;
+    2)	DAY=Tue ;;
+    3)	DAY=Wed ;;
+    4)	DAY=Thu ;;
+    5)	DAY=Fri ;;
+    6)	DAY=Sat ;;
+    7)  DAY=Sun ;;
+esac
+
+case $MONTH in
+    1)	MONTH=Jan ;;
+    2)	MONTH=Feb ;;
+    3)	MONTH=Mar ;;
+    4)	MONTH=Apr ;;
+    5)	MONTH=May ;;
+    6)	MONTH=Jun ;;
+    7)	MONTH=Jul ;;
+    8)	MONTH=Aug ;;
+    9)	MONTH=Sep ;;
+    10)	MONTH=Oct ;;
+    11)	MONTH=Nov ;;
+    12) MONTH=Dec ;;
+esac
+
+#	set variable
+
+EXEC=$(cut -d';' -f2 <<< `grep "^EXEC"  $conf_file`)
+PROJECT_DIR=$(cut -d';' -f2 <<< `grep "^PROJECT_DIR;" $conf_file`)
+SOURCES_DIR=$(cut -d';' -f2 <<< `grep "^SOURCES_DIR;" $conf_file`)
+CC=$(cut -d';' -f2 <<< `grep "^CC;" $conf_file`)
+LIBS_DIR=$(cut -d';' -f2 <<< `grep "^LIBS_DIR;" $conf_file`)
+HEADERS_DIR=$(cut -d';' -f2 <<< `grep "^HEADERS_DIR;" $conf_file`)
+CFLAGS=$(cut -d';' -f2 <<< `grep "^CFLAGS;" $conf_file`)
+LDFLAGS=$(cut -d';' -f2 <<< `grep "^LDFLAGS;" $conf_file`)
+
+#	set variable for management
+
+BCK_DIR=$(cut -d';' -f2 <<< `grep "^BCK_DIR;" $conf_file`)
+ZIP=$(cut -d';' -f2 <<< `grep "^ZIP;" $conf_file`)
+ZIPFLAGS=$(cut -d';' -f2 <<< `grep "^ZIPFLAGS;" $conf_file`)
+UNZIP=$(cut -d';' -f2 <<< `grep "^UNZIP;" $conf_file`)
+UNZIPFLAGS=$(cut -d';' -f2 <<< `grep "^UNZIPFLAGS;" $conf_file`)
+
+#	set SRC
+
+while read line
+do
+    if [[ "$line" =~ .*(\.(h|c)|;)$ ]]
+    then
+	SRC+="$SOURCES_DIR/"
+	SRC+=$(cut -d';' -f1 <<<$line)
+	SRC+="\t\t\0134\012\t\t\t"
+    fi
+done < $conf_file
+
+#	print Makefile
+
+echo -e "##
+## Makefile for $PROJECT_DIR in $PWD
+##
+## Made by $USER
+## Login   <$USER@epitech.net>
+##
+## Started on  $DAY $MONTH $(date +%d) $HOUR:$MIN:$(date +%S) $YEAR $USER
+## Last update $DAY $MONTH $(date +%d) $HOUR:$MIN:$(date +%S) $YEAR $USER
+##
+
+NAME		=	$EXEC
+
+SRC		=       $SRC
+
+OBJ		=	\$(SRC:.c=.o)
+
+CFLAGS		+=	$CFLAGS -I./$HEADERS_DIR -L./$LIBS_DIR
+
+DEBUG		=	0
+
+VER		=	standar
+
+ifeq (\$(DEBUG),1)
+CFLAGS		+=	-g -ggdb3
+endif
+
+CC		=	$CC
+
+all:			\$(NAME)
+
+\$(NAME):		\$(OBJ)
+			\$(CC) -o \$(NAME) \$(OBJ) $LDFLAGS
+
+clean:
+			rm -rf \$(OBJ)
+
+fclean:			clean
+			rm -rf \$(NAME)
+
+re:			fclean all
+
+archive:		delete
+			@mkdir -p $BCK_DIR
+			$ZIP $ZIPFLAGS $PROJECT_DIR $BCK_DIR/save_\$(VER) \$(SRC)
+			@echo \"$BCK_DIR file generated\"
+
+revert:
+			$UNZIP $UNZIPFLAGS $BCK_DIR/save_\$(VER)
+
+delete:
+ifeq (\$(VER),all)
+	VER=*
+	@echo \"deleting all save\"
+else
+	@echo \"deleting save_\$(VER)\"
+endif
+			@rm -rf $BCK_DIR/save_\$(VER)" > Makefile

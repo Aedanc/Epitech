@@ -1,0 +1,74 @@
+Spider Protocol
+
+Connection avec 2 sockets
+
+* - Socket de commande:
+* Envoi par format texte
+
+ Bytes  | 4       | char[size]        |
+        -------------------------------
+        | SIZE    | STRING            |
+        -------------------------------
+                  | Encrypt           |
+
+* Première connection entre le client et le server.
+* Le client envoi son statut au serveur,
+* le serveur envoie ensuite les informations de connection
+* vers la socket data au client.
+* sous ce format :
+
+  [IPV4 | IPV6]:[PORT]
+
+* Le serveur et le client communiquent ensuite par commande sur cette socket.
+
+[ TODO : Commandes à définir ]
+
+- Socket de data:
+* Envoi par format binaire:
+Bytes | 4    | 4            | char[size] |
+      ------------------------------------
+      | SIZE | MAGIC_NUMBER | DATA       |
+      ------------------------------------
+
+* Le paquet se décompose en 3 parties :
+* - La taille totale du paquet à venir
+* - 4 bytes déterminant le type du paquet
+* - Les données envoyées.
+
+* Dans les 2 sockets de communication, les données seront encryptées,
+* la taille du paquet est donc la taille totale des données CHIFFRÉES.
+
+* La taille d'un paquet est présente quelque soit le type de commande
+* (commande / data).
+
+* - Keylogging
+* La structure de données représentant un paquet de log se décompose ainsi:
+
+Bytes   | 32          | 8         | 2      | 2      | 1            | 1   | 2  |
+        -----------------------------------------------------------|-----|----|
+        | Nom         | Timestamp | Mouse  | Mouse  | Bitmask      | Key | UNUSED
+        | du process. |           | pos. X | pos. Y | special keys |     |----|
+
+* Le nom du processus prends maximum 32 caractères, comprenant le charactère
+* nul de terminaison ('\0'). Le nom peut être raccourci si il est trop long
+* et ne rentre pas dans ce format.
+
+* Le timestamp est l'heure locale du client de keylog.
+
+* Les positions de souris doivent être envoyées en même temps qu'un clic de
+* souris. Elles peuvent être également envoyées lors d'un appui clavier.
+
+* Le bitmask des caractère spéciaux permet de détecter l'appui sur des touches
+* telles que MAJ, CTRL ou ALT. Ceci permet de détecter les combinaisons de
+* touches comme CTRL + MAJ + 1. Le bitmask se présente comme ceci:
+
+   0x08   ----------------------------------------   0x01
+	[ ALTGR | CTRL | ALT |  MAJ ]
+
+
+ * Le dernier byte du paquet représente la touche / bouton du souris
+ * appuyé.
+
+ [ TODO: Définir les valeurs de toutes les touches ]
+
+ * Toutes les commandes et envois de données sont au format little-endian.

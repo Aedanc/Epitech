@@ -1,0 +1,7 @@
+exceptions de base:
+.si ton premier char est un COMMENT_CHAR ou un '.' ou ta premiere str == NULL
+-> tu skip
+
+si tu commences a avoir plus de trois variables, relis un peu ta foction
+et essaie de la reagencer si tu peux et surtout DONT_PANIC, ca va bien se
+passer ;)
